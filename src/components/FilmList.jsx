@@ -1,112 +1,86 @@
-import { Component } from 'react';
 import { Row, Col, Alert } from 'react-bootstrap';
-import { ChevronLeft, ChevronRight } from 'react-bootstrap-icons'; 
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const URL = 'http://www.omdbapi.com/?apikey=566ef110&s=';
 
-class FilmList extends Component {
-  state = {
-    filmList: [],
-    errorMessage: '',
-    currentIndex: 0, 
-    filmsPerPage: 6,
-  };
+const FilmList = (props) => {
+  // state = {
+  //   filmList: [],
+  //   errorMessage: '',
+  //   currentIndex: 0,
+  //   filmsPerPage: 6,
+  // };
 
-  errorBlock = (
+  const [filmList, setFilmList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+
+  const errorBlock = (
     <Alert variant='danger' dismissible>
       <Alert.Heading>❌ You got an error!</Alert.Heading>
     </Alert>
   );
 
-  getFilmList = async () => {
+  const getFilmList = async () => {
     try {
-      const response = await fetch(URL + this.props.query);
+      const response = await fetch(URL + props.query);
       if (response.ok) {
         const data = await response.json();
-        this.setState({ filmList: data.Search, isLoading: false });
+        //this.setState({ filmList: data.Search, isLoading: false });
+        setFilmList(data.Search);
       } else {
         throw new Error("❌ Errore nella lettura dell'API");
       }
     } catch (error) {
-      this.setState({ errorMessage: error });
+      //this.setState({ errorMessage: error });
+      setErrorMessage(error);
     }
   };
 
-  componentDidMount() {
-    this.getFilmList();
-  }
-
-  handleNext = () => {
-    const { filmList, currentIndex, filmsPerPage } = this.state;
-    const totalFilms = filmList.length;
-    if (currentIndex + filmsPerPage < totalFilms) {
-      this.setState((prevState) => ({ currentIndex: prevState.currentIndex + filmsPerPage }));
-    }
+  const showMovieDetails = (movieId) => {
+    navigate('/movie-details/' + movieId);
   };
 
-  handlePrevious = () => {
-    const { currentIndex, filmsPerPage } = this.state;
-    if (currentIndex - filmsPerPage >= 0) {
-      this.setState((prevState) => ({ currentIndex: prevState.currentIndex - filmsPerPage }));
-    }
-  };
+  useEffect(() => {
+    getFilmList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <>
+      {props.isLoaded && errorMessage === '' && <h4>{props.title}</h4>}
 
-  render() {
-    const { filmList, currentIndex, filmsPerPage } = this.state;
-    const currentFilms = filmList.slice(currentIndex, currentIndex + filmsPerPage);
-
-    return (
-      <>
-        {this.props.isLoaded && this.state.errorMessage === '' && (
-          <>
-          <h4 className='text-light'>{this.props.title}</h4>
-            <Row className='filmList mb-4'>
-              <div className="d-flex overflow-auto position-relative">
-                <div
-                  className="position-absolute top-50 start-0 translate-middle-y"
-                  style={{ left: '10px', zIndex: 10 }}
-                  onClick={this.handlePrevious}
-                  role="button"
+      {props.isLoaded && errorMessage === '' && (
+        <Row className='filmList mb-4'>
+          {filmList.map((film, i) => {
+            if (i < 6) {
+              return (
+                <Col
+                  sm={6}
+                  lg={3}
+                  xl={2}
+                  key={film.imdbID}
+                  className='singleFilm mb-2 px-1'
+                  onClick={() => {
+                    showMovieDetails(film.imdbID);
+                  }}
                 >
-                  <ChevronLeft size={30} color="white" />
-                </div>
-                
-                {currentFilms.map((film) => (
-                  <Col
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    xl={2}
-                    key={film.imdbID}
-                    className='singleFilm mb-2 px-1'
-                  >
-                    <img
-                      src={film.Poster}
-                      alt={film.Title}
-                      className='filmPoster'
-                    />
-                  </Col>
-                ))}
+                  <img
+                    src={film.Poster}
+                    alt={film.Title}
+                    className='filmPoster'
+                  />
+                </Col>
+              );
+            }
+          })}
+        </Row>
+      )}
 
-                <div
-                  className="position-absolute top-50 end-0 translate-middle-y"
-                  style={{ right: '10px', zIndex: 10 }}
-                  onClick={this.handleNext}
-                  role="button"
-                >
-                  <ChevronRight size={30} color="white" />
-                </div>
-              </div>
-            </Row>
-          </>
-        )}
-
-        {this.props.isLoaded &&
-          this.state.errorMessage !== '' &&
-          this.errorBlock}
-      </>
-    );
-  }
-}
+      {props.isLoaded && errorMessage != '' && errorBlock}
+    </>
+  );
+};
 
 export default FilmList;

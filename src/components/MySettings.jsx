@@ -99,7 +99,9 @@ class MySettings extends Component {
                 <a href='javascript:void(0)'>Activate a device</a>
               </p>
               <p>
-                <a href='javascript:void(0)'>Recent device streaming activity</a>
+                <a href='javascript:void(0)'>
+                  Recent device streaming activity
+                </a>
               </p>
               <p>
                 <a href='javascript:void(0)'>Signout all devices</a>
@@ -115,12 +117,12 @@ class MySettings extends Component {
               <div className='row align-items-center'>
                 <div className='col-6'>
                   <p className='fw-bold'>
-                      <img
-                        src='../../public/assets/media/avatar.png'
-                        style={{ width: '40px' }}
-                        alt='avatarAccount'
-                        id='avatar'
-                      />
+                    <img
+                      src='../../public/assets/media/avatar.png'
+                      style={{ width: '40px' }}
+                      alt='avatarAccount'
+                      id='avatar'
+                    />
                     &nbsp;&nbsp;Epicoder #1
                   </p>
                 </div>
