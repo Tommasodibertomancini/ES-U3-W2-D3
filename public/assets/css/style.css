@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #221f1f;
+}
+
+h2,
+h4,
+footer {
+  color: #f5f5f1;
+}
+
+.icons {
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  font-size: 1.2em;
+  color: #f5f5f1;
+}
+
+.navbar-nav {
+  font-size: 90%;
+}
+
+.spinnerBox {
+  margin-top: 25vh;
+}
+
+#kids {
+  color: #f5f5f1;
+  font-size: 0.8em;
+}
+
+.footer-icon {
+  color: #838383;
+}
+
+.footer-links {
+  font-size: 0.9em;
+}
+
+.footer-links p {
+  margin-bottom: 0.3em;
+  color: #838383;
+}
+
+.footer-links a {
+  color: #838383;
+  text-decoration: none;
+}
+
+.footer-button {
+  color: #838383;
+  border-color: #838383;
+}
+
+.copyright {
+  color: #838383;
+  font-size: 0.6em;
+}
+
+/* FilmList */
+
+.singleFilm {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.filmPoster {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  max-width: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+.filmPoster:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.position-absolute {
+    position: absolute;
+  }
+  
+  .translate-middle-y {
+    transform: translateY(-50%);
+  }
+  
+  .filmList {
+    position: relative;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button {
+    border: none;
+  }
+  
+
+/* ProfilePage */
+
+.form-check:checked,
+.form-check,
+.form-check:focus {
+  background-color: transparent;
+  border: 1px solid #6c757d;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+#avatarProfile {
+  width: 70%;
+}
+
+.customText {
+  background-color: var(--bs-secondary);
+  color: var(--bs-white);
+  border: 1px solid var(--bs-secondary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.customText:focus {
+  background-color: var(--bs-white);
+  color: var(--bs-black);
+  border-color: var(--bs-black);
+}
+
+/* SettingsPage */
+
+.settings {
+  background-color: white;
+}
+
+.item {
+  background-color: #221f1f;
+}
