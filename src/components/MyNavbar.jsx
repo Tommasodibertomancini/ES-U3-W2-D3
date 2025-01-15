@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Navbar, Dropdown, Image } from 'react-bootstrap';
 import { Search, Bell } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 class MyNavbar extends Component {
   render() {
@@ -14,25 +15,25 @@ class MyNavbar extends Component {
         style={{ backgroundColor: '#221f1f' }}
       >
         <div className='container-fluid'>
-          <Navbar.Brand href='javascript:void(0)' onClick={() => handleChangePage(1)}>
+        <Link to='/' className='navbar-brand'>
             <img
               src='../../public/assets/media/logo.png'
               style={{ width: '100px', height: '55px' }}
               alt='Logo'
             />
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls='navbarScroll' />
           <Navbar.Collapse id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
               <li className='nav-item'>
-                <a className='nav-link active fw-bolder' href='#'>
-                  Home
-                </a>
+              <Link className='nav-link active fw-bold' to='/'>
+                Home
+              </Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link fw-normal' href='#'>
-                  TV Shows
-                </a>
+              <Link className='nav-link fw-normal' to='tv-shows'>
+                TV Shows
+              </Link>
               </li>
               <li className='nav-item'>
                 <a className='nav-link fw-normal' href='#'>
@@ -83,12 +84,12 @@ class MyNavbar extends Component {
                     />
                     Epicoder#1
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleChangePage(2)}>
-                    Manage profile
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleChangePage(3)}>
+                  <Link className='dropdown-item' to='/profile'>
+                    Manage Profile
+                  </Link>
+                  <Link className='dropdown-item' to='/settings'>
                     Account
-                  </Dropdown.Item>
+                  </Link>
                   <Dropdown.Item href='#'>Help Center</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item href='#'>Signout Netflix</Dropdown.Item>
